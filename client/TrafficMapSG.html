@@ -1,0 +1,57 @@
+<head>
+
+	<title>TrafficMapSG</title>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCR-Jv35-pmwa_yx5nJ4U5IMhcQpwq4c_c">
+	</script>
+</head>
+
+<body>
+	{{> main}}
+</body>
+
+<template name="main">
+	<div class="container">
+		{{> header}}
+
+		<div id="main" class="row-fluid">
+
+			{{> map}}
+		</div>
+	</div>
+</template>
+
+
+<template name="map">
+	<div id="map-canvas"></div>
+	{{> data}}
+</template>
+
+
+<template name="header">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/">Traffic Map @SG</a>
+			</div>
+
+		</div><!-- /.container-fluid -->
+	</nav>
+	
+</template>
+
+<template name="data">
+
+	<div class="jumbotron">
+		<button type="button" class="btn btn-success" id="get-data">Get Data</button>
+	</div>
+	<hr>
+</template>

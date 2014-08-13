@@ -1,0 +1,3 @@
+
+
+entryHandle = Meteor.subscribe('entries');
