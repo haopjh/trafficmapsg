@@ -2,6 +2,10 @@ Meteor.methods({
 	'getData': function() {
 		getData();
 
+	},
+
+	removeData: function(){
+		removeData();
 	}
 });
 
@@ -38,7 +42,9 @@ getData = function() {
 				var date = time.split(")")[0].split("(")[1];
 				var hour = time.split(")")[1].split(":")[0];
 				var minute = time.split(")")[1].split(":")[1];
-				var timestamp = moment(date, "MM-DD").add('hours', hour).add('minutes', minute).unix();
+				var timestamp = moment(date, "DD-MM").unix() + parseInt(hour) * 60 + parseInt(minute);
+
+				console.log(timestamp);
 
 				//getid
 				var id = entry.split("(")[1].split(")")[0];
@@ -66,9 +72,32 @@ getData = function() {
 	});
 }
 
+if(Entries.find().count() === 0){
+	getData();
+	Meteor.setTimeout(function(){
+		removeData();
+	},12000);
+}
+
+removeData = function() {
+	var eList = Entries.find({archive: false}).fetch();
+	_.each(eList, function(entry) {
+		if((moment().unix() - entry.timestamp) > 900){
+			Entries.update(entry._id, {$set: {archive: true}}, function(error) {
+				if (error) {
+					// display the error to the user
+					throwError(error.reason);
+				}
+			});
+		}
+	});
+}
+
+
 var MyCron = new Cron();
 MyCron.addJob(10, function(){
 	getData();
+	removeData();
 });
 
 
